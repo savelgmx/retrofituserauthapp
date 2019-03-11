@@ -9,6 +9,7 @@ import com.elegion.myfirstapplication.model.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -34,6 +35,11 @@ public interface AcademyApi {
     Call<Song> getSong(@Path("id") int id);
 
     @GET("user")
-    Call<User> getUser();
+    Call<User> getUser(@Header("Authorization") String authorization);
+
+    /*
+    @GET("/user")
+Call<User> getUser(@Header("Authorization") String authorization)
+     */
 
 }

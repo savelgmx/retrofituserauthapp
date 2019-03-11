@@ -71,6 +71,8 @@ public class RegistrationFragment extends Fragment {
                                 });
                             }
                         });
+
+
             } else {
                 showMessage(R.string.input_error);
             }

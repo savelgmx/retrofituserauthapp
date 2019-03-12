@@ -37,9 +37,4 @@ public interface AcademyApi {
     @GET("user")
     Call<User> getUser(@Header("Authorization") String authorization);
 
-    /*
-    @GET("/user")
-Call<User> getUser(@Header("Authorization") String authorization)
-     */
-
 }

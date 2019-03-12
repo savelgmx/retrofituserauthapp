@@ -51,54 +51,54 @@ public class AuthFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isEmailValid() && isPasswordValid()) {
-                Request request = new Request.Builder()
-                        .url(BuildConfig.SERVER_URL.concat("/user"))
-                        .build();
 
-                OkHttpClient client = ApiUtils.getBasicAuthClient(
-                        mEmail.getText().toString(),
-                        mPassword.getText().toString(),
-                        true);
-                client.newCall(request).enqueue(new Callback() {
-                    //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
-                    Handler mainHandler = new Handler(getActivity().getMainLooper());
 
-                    @Override
-                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        mainHandler.post(new Runnable() {
+
+                ApiUtils.getApiService().getUser("").enqueue(
+
+                        new retrofit2.Callback<User>(){
+                            //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
+                            Handler mainHandler = new Handler(getActivity().getMainLooper());
+
+
                             @Override
-                            public void run() {
-                                showMessage(R.string.request_error);
-                            }
-                        });
-                    }
+                            public void onResponse(retrofit2.Call<User> call, final retrofit2.Response<User> response) {
 
-                    @Override
-                    public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
-                        mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!response.isSuccessful()) {
-                                    //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
-                                    showMessage(R.string.auth_error);
-                                } else {
-                                    try {
-                                        Gson gson = new Gson();
-                                        JsonObject json = gson.fromJson(response.body().string(), JsonObject.class);
-                                        User user = gson.fromJson(json.get("data"), User.class);
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (!response.isSuccessful()) {
+                                            //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
+                                            showMessage(R.string.auth_error);
+                                        } else {
+                                            Gson gson = new Gson();
+                                            JsonObject json = gson.fromJson(response.body().toString(), JsonObject.class);
+                                            User user = gson.fromJson(json.get("data"), User.class);
 
-                                        Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
-                                        startProfileIntent.putExtra(ProfileActivity.USER_KEY, user);
-                                        startActivity(startProfileIntent);
-                                        getActivity().finish();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
+                                            Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
+                                            startProfileIntent.putExtra(ProfileActivity.USER_KEY, user);
+                                            startActivity(startProfileIntent);
+                                            getActivity().finish();
+                                        }
                                     }
-                                }
+                                });
+
+
+                            }//
+
+                            @Override
+                            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showMessage(R.string.request_error);
+                                    }
+                                });
+
+
                             }
-                        });
-                    }
-                });
+                        }); //ApiUtils.getApiService().getUser(user).enqueue
+
             } else {
                 showMessage(R.string.input_error);
             }

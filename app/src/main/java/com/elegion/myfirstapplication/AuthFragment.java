@@ -60,6 +60,17 @@ public class AuthFragment extends Fragment {
                             //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
                             Handler mainHandler = new Handler(getActivity().getMainLooper());
 
+                            @Override
+                            public void onFailure(retrofit2.Call<User> call, Throwable t) {
+                                mainHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showMessage(R.string.request_error);
+                                    }
+                                });
+
+
+                            }
 
                             @Override
                             public void onResponse(retrofit2.Call<User> call, final retrofit2.Response<User> response) {
@@ -86,17 +97,6 @@ public class AuthFragment extends Fragment {
 
                             }//
 
-                            @Override
-                            public void onFailure(retrofit2.Call<User> call, Throwable t) {
-                                mainHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        showMessage(R.string.request_error);
-                                    }
-                                });
-
-
-                            }
                         }); //ApiUtils.getApiService().getUser(user).enqueue
 
             } else {

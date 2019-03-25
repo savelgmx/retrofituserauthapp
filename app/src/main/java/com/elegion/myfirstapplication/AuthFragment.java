@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,9 +53,13 @@ public class AuthFragment extends Fragment {
         public void onClick(View view) {
             if (isEmailValid() && isPasswordValid()) {
 
+              // concatenate username/email and password with colon for authentication
+                String credentials = mEmail.getText().toString()+ ":" +mPassword.getText().toString();
+               final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
 
 
-                ApiUtils.getApiService().getUser("").enqueue(
+
+                ApiUtils.getApiService().getUser(authHeader).enqueue(
 
                         new retrofit2.Callback<User>(){
                             //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке

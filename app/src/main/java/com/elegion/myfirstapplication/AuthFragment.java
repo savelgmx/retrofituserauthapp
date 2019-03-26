@@ -9,6 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,6 @@ public class AuthFragment extends Fragment {
     private Button mEnter;
     private Button mRegister;
     private SharedPreferencesHelper mSharedPreferencesHelper;
-
     private ArrayAdapter<String> mEmailedUsersAdapter;
 
     public static AuthFragment newInstance() {
@@ -52,19 +52,13 @@ public class AuthFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isEmailValid() && isPasswordValid()) {
-
-              // concatenate username/email and password with colon for authentication
-                String credentials = mEmail.getText().toString()+ ":" +mPassword.getText().toString();
-               final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
-
-
-
+                String credentials = mEmail.getText().toString()+ ":" +mPassword.getText().toString();// concatenate username/email and password with colon for authentication
+                final String authHeader= "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);//form authenfication header
                 ApiUtils.getApiService().getUser(authHeader).enqueue(
 
                         new retrofit2.Callback<User>(){
                             //используем Handler, чтобы показывать ошибки в Main потоке, т.к. наши коллбеки возвращаются в рабочем потоке
                             Handler mainHandler = new Handler(getActivity().getMainLooper());
-
                             @Override
                             public void onFailure(retrofit2.Call<User> call, Throwable t) {
                                 mainHandler.post(new Runnable() {
@@ -73,13 +67,10 @@ public class AuthFragment extends Fragment {
                                         showMessage(R.string.request_error);
                                     }
                                 });
-
-
                             }
 
                             @Override
                             public void onResponse(retrofit2.Call<User> call, final retrofit2.Response<User> response) {
-
                                 mainHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -98,8 +89,6 @@ public class AuthFragment extends Fragment {
                                         }
                                     }
                                 });
-
-
                             }//
 
                         }); //ApiUtils.getApiService().getUser(user).enqueue

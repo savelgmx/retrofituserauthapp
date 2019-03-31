@@ -33,7 +33,8 @@ public class SharedPreferencesHelper {
     public boolean addUser(User user) {
         List<User> users = getUsers();
         for (User u : users) {
-            if (u.getEmail().equalsIgnoreCase(user.getEmail())) {
+
+            if (u.getData().getEmail().equalsIgnoreCase(user.getData().getEmail())) {
                 return false;
             }
         }
@@ -45,7 +46,7 @@ public class SharedPreferencesHelper {
     public boolean saveOrOverrideUser(User user) {
         List<User> users = getUsers();
         for (User u : users) {
-            if (u.getEmail().equalsIgnoreCase(user.getEmail())) {
+            if (u.getData().getEmail().equalsIgnoreCase(user.getData().getEmail())) {
                 users.remove(u);
                 break;
             }
@@ -60,7 +61,7 @@ public class SharedPreferencesHelper {
         List<User> allUsers = getUsers();
         for (User user : allUsers) {
             if (user.hasSuccessEmail()) {
-                successEmails.add(user.getEmail());
+                successEmails.add(user.getData().getEmail());
             }
         }
         return successEmails;
@@ -69,7 +70,7 @@ public class SharedPreferencesHelper {
     public User login(String email, String password) {
         List<User> users = getUsers();
         for (User u : users) {
-            if (email.equalsIgnoreCase(u.getEmail())
+            if (email.equalsIgnoreCase(u.getData().getEmail())
                     && password.equals(u.getPassword())) {
                 u.setHasSuccessEmail(true);
                 mSharedPreferences.edit().putString(USERS_KEY, mGson.toJson(users, USERS_TYPE)).apply();

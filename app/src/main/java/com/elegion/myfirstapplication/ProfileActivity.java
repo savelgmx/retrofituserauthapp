@@ -27,8 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         mUser = (User) bundle.get(USER_KEY);
-        mEmail.setText(mUser.getEmail());
-        mName.setText(mUser.getName());
+        mEmail.setText(mUser.getData().getEmail());
+        mName.setText(mUser.getData().getName());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.elegion.myfirstapplication.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class User implements Serializable {
 
     private boolean mHasSuccessEmail;
 
+
     public User(String email, String password) {
         mEmail = email;
         mPassword = password;
@@ -25,20 +27,56 @@ public class User implements Serializable {
         mPassword = password;
     }
 
-    public String getEmail() {
-        return mEmail;
+    @SerializedName("data")
+    @Expose
+    private DataBean data;
+    private final static long serialVersionUID = -4635470215552223363L;
+
+    public DataBean getData() {
+        return data;
     }
 
-    public void setEmail(String email) {
-        mEmail = email;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public String getName() {
-        return mName;
-    }
+    //---добавляем внутрений класс DataBean обертку для data
+    public static class DataBean {
+        @SerializedName("id")
+        @Expose
+        private Integer mId;
+        @SerializedName("name")
+        @Expose
+        private String mName;
+        @SerializedName("email")
+        @Expose
+        private String mEmail;
+        private final static long serialVersionUID = -8198786674952514731L;
 
-    public void setName(String name) {
-        mName = name;
+        public Integer getId() {
+            return mId;
+        }
+
+        public void setId(Integer id) {
+            this.mId = id;
+        }
+
+        public String getName() {
+            return mName;
+        }
+
+        public void setName(String name) {
+            this.mName = name;
+        }
+
+        public String getEmail() {
+            return mEmail;
+        }
+
+        public void setEmail(String email) {
+            this.mEmail = email;
+        }
+
     }
 
     public String getPassword() {
@@ -56,4 +94,7 @@ public class User implements Serializable {
     public void setHasSuccessEmail(boolean hasSuccessEmail) {
         mHasSuccessEmail = hasSuccessEmail;
     }
+
 }
+
+

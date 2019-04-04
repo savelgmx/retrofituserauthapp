@@ -35,7 +35,7 @@ public class RegistrationFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (isInputValid()) {
-                User user = new User(
+                User.UserBean user = new User.UserBean(
                         mEmail.getText().toString(),
                         mName.getText().toString(),
                         mPassword.getText().toString());

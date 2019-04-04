@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -83,7 +84,7 @@ public class AuthFragment extends Fragment {
                                             User user = gson.fromJson(json.get("data"), User.class);
 
                                             Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
-                                            startProfileIntent.putExtra(ProfileActivity.USER_KEY, user);
+                                            startProfileIntent.putExtra(ProfileActivity.USER_KEY, (Serializable) user);
                                             startActivity(startProfileIntent);
                                             getActivity().finish();
                                         }

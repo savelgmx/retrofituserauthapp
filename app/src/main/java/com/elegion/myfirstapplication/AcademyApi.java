@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public interface AcademyApi {
 
     @POST("registration")
-    Call<Void> registration(@Body User user);
+    Call<Void> registration(@Body User.UserBean user);
 
     @GET("albums")
     Call<Albums> getAlbums();

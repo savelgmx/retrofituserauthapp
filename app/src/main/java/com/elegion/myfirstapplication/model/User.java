@@ -3,98 +3,61 @@ package com.elegion.myfirstapplication.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+public class User {
 
-public class User implements Serializable {
-    @SerializedName("email")
-    private String mEmail;
-    @SerializedName("name")
-    private String mName;
-    @SerializedName("password")
-    private String mPassword;
-
-    private boolean mHasSuccessEmail;
-
-
-    public User(String email, String password) {
-        mEmail = email;
-        mPassword = password;
-    }
-
-    public User(String email, String name, String password) {
-        mEmail = email;
-        mName = name;
-        mPassword = password;
-    }
-
-    @SerializedName("data")
     @Expose
-    private DataBean data;
-    private final static long serialVersionUID = -4635470215552223363L;
+    @SerializedName("data")
+    private final UserBean mData;
 
-    public DataBean getData() {
-        return data;
+    public User(UserBean data) {
+        mData = data;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public UserBean getData() {
+        return mData;
     }
 
-    //---добавляем внутрений класс DataBean обертку для data
-    public static class DataBean {
-        @SerializedName("id")
-        @Expose
-        private Integer mId;
-        @SerializedName("name")
-        @Expose
-        private String mName;
+    public static class UserBean {
+
         @SerializedName("email")
-        @Expose
-        private String mEmail;
-        private final static long serialVersionUID = -8198786674952514731L;
+        private String login;
 
-        public Integer getId() {
-            return mId;
+        @Expose
+        @SerializedName("name")
+        private String name;
+
+        @Expose
+        @SerializedName("password")
+        private String password;
+
+        public UserBean(String login, String name, String password) {
+            this.login = login;
+            this.name = name;
+            this.password = password;
         }
 
-        public void setId(Integer id) {
-            this.mId = id;
+        private String photoUri = null;
+
+        private Boolean mHasSuccessLogin = false;
+
+        private Boolean hasSuccessLogin() {
+            return mHasSuccessLogin;
+        }
+
+        private void setHasSuccessLogin(Boolean hasSuccessLogin) {
+            mHasSuccessLogin = hasSuccessLogin;
+        }
+
+
+        public String getEmail() {
+            return login;
         }
 
         public String getName() {
-            return mName;
+            return name;
         }
-
-        public void setName(String name) {
-            this.mName = name;
-        }
-
-        public String getEmail() {
-            return mEmail;
-        }
-
-        public void setEmail(String email) {
-            this.mEmail = email;
-        }
-
     }
-
-    public String getPassword() {
-        return mPassword;
-    }
-
-    public void setPassword(String password) {
-        mPassword = password;
-    }
-
-    public boolean hasSuccessEmail() {
-        return mHasSuccessEmail;
-    }
-
-    public void setHasSuccessEmail(boolean hasSuccessEmail) {
-        mHasSuccessEmail = hasSuccessEmail;
-    }
-
 }
+
 
 

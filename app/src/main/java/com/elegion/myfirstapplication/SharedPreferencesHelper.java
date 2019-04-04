@@ -60,9 +60,11 @@ public class SharedPreferencesHelper {
         List<String> successEmails = new ArrayList<>();
         List<User> allUsers = getUsers();
         for (User user : allUsers) {
+/*
             if (user.hasSuccessEmail()) {
                 successEmails.add(user.getData().getEmail());
             }
+*/
         }
         return successEmails;
     }
@@ -70,13 +72,13 @@ public class SharedPreferencesHelper {
     public User login(String email, String password) {
         List<User> users = getUsers();
         for (User u : users) {
-            if (email.equalsIgnoreCase(u.getData().getEmail())
+ /*           if (email.equalsIgnoreCase(u.getData().getEmail())
                     && password.equals(u.getPassword())) {
                 u.setHasSuccessEmail(true);
                 mSharedPreferences.edit().putString(USERS_KEY, mGson.toJson(users, USERS_TYPE)).apply();
                 return u;
             }
-        }
+*/        }
         return null;
     }
 }

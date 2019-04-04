@@ -80,8 +80,11 @@ public class AuthFragment extends Fragment {
                                             showMessage(R.string.auth_error);
                                         } else {
                                             Gson gson = new Gson();
-                                            JsonObject json = gson.fromJson(response.body().toString(), JsonObject.class);
-                                            User user = gson.fromJson(json.get("data"), User.class);
+//                                            JsonObject json = gson.fromJson(response.body().getData(), JsonObject.class);
+//                                            User user = gson.fromJson(json.get("data"), User.class);
+
+                                            User.UserBean user = response.body().getData();
+//                                            User user = gson.fromJson(json.get("data"), User.class);
 
                                             Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
                                             startProfileIntent.putExtra(ProfileActivity.USER_KEY, (Serializable) user);

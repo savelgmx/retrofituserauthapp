@@ -3,6 +3,8 @@ package com.elegion.myfirstapplication.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 public class User {
 
     @Expose
@@ -17,7 +19,7 @@ public class User {
         return mData;
     }
 
-    public static class UserBean {
+    public static class UserBean implements Serializable {
 
         @SerializedName("email")
         private String login;

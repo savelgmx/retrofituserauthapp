@@ -22,24 +22,14 @@ import android.widget.Toast;
 
 import com.elegion.myfirstapplication.model.User;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import java.io.IOException;
 import java.io.Serializable;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class AuthFragment extends Fragment {
     private AutoCompleteTextView mEmail;
     private EditText mPassword;
     private Button mEnter;
     private Button mRegister;
-    private SharedPreferencesHelper mSharedPreferencesHelper;
-    private ArrayAdapter<String> mEmailedUsersAdapter;
 
     public static AuthFragment newInstance() {
         Bundle args = new Bundle();
@@ -141,8 +131,6 @@ public class AuthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fr_auth, container, false);
 
-        mSharedPreferencesHelper = new SharedPreferencesHelper(getActivity());
-
         mEmail = v.findViewById(R.id.etEmail);
         mPassword = v.findViewById(R.id.etPassword);
         mEnter = v.findViewById(R.id.buttonEnter);
@@ -151,13 +139,6 @@ public class AuthFragment extends Fragment {
         mEnter.setOnClickListener(mOnEnterClickListener);
         mRegister.setOnClickListener(mOnRegisterClickListener);
         mEmail.setOnFocusChangeListener(mOnEmailFocusChangeListener);
-
-        mEmailedUsersAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_dropdown_item_1line,
-                mSharedPreferencesHelper.getSuccessEmails()
-        );
-        mEmail.setAdapter(mEmailedUsersAdapter);
 
         return v;
     }

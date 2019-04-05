@@ -23,7 +23,6 @@ public class User {
 
         @SerializedName("email")
         private String login;
-
         @Expose
         @SerializedName("name")
         private String name;
@@ -37,8 +36,6 @@ public class User {
             this.name = name;
             this.password = password;
         }
-
-        private String photoUri = null;
 
         private Boolean mHasSuccessLogin = false;
 

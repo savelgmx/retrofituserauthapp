@@ -52,7 +52,30 @@ public class RegistrationFragment extends Fragment {
                                     public void run() {
                                         if (!response.isSuccessful()) {
                                             //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
-                                            showMessage(R.string.registration_error);
+ /*                                           switch(response.code()){
+                                                case 400: //400 Bad Request
+                                                    showMessage(R.string.registration_error);
+                                                    break;
+                                                case 500: //Server error
+                                                    showMessage(R.string.server_error);
+                                                    break;
+
+                                                default:
+                                                    showMessage(R.string.unknown_error);
+                                                    break;
+
+                                            }
+*/
+ /*                                           try {
+                                                Toast.makeText(getActivity(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                                            } catch (IOException e) {
+                                                //e.printStackTrace();
+                                                showMessage(R.string.unknown_error);
+                                            }
+*/
+                                        ApiError apiError=ErrorUtils.parseError(response);
+                                        Toast.makeText(getActivity(),apiError.getMessage(),Toast.LENGTH_SHORT).show();
+
                                         } else {
                                             showMessage(R.string.registration_success);
                                             getFragmentManager().popBackStack();

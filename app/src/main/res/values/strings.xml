@@ -18,5 +18,7 @@
     <string name="response_code_204">Успешная регистрация</string>
     <string name="response_code_400">Ошибка валидации</string>
     <string name="response_code_404">Альбома не существует</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 
 </resources>

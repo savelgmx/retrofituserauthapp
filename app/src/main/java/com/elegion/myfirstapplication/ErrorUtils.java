@@ -1,10 +1,7 @@
 package com.elegion.myfirstapplication;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
+import android.support.annotation.StringRes;
 
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 /**
@@ -12,19 +9,37 @@ import retrofit2.Response;
  */
 
 public class ErrorUtils {
-    public static ApiError parseError(Response<?> response) {
-        Converter<ResponseBody, ApiError> converter =
-                ApiUtils.getRetrofit()
-                        .responseBodyConverter(ApiError.class, new Annotation[0]);
 
-        ApiError error;
 
-        try {
-            error = converter.convert(response.errorBody());
-        } catch (IOException e) {
-            return new ApiError();
+    @StringRes
+    static
+    int stringCode;
+
+    public static int parseError(Response<?> response) {
+        switch (response.code()) {
+            case 200:
+                stringCode = R.string.response_code_200;
+               // return stringCode;
+                break;
+            case 204:
+                stringCode = R.string.response_code_204;
+                // return stringCode;
+                break;
+            case 400: //400 Bad Request
+                stringCode = R.string.response_code_400;
+                // return stringCode;
+                break;
+            case 500: //Server error
+                stringCode = R.string.server_error;
+                //   return stringCode;
+               break;
+            default:
+                stringCode = R.string.unknown_error;
+               // return stringCode;
+                break;
+
         }
-
-        return error;
+    return stringCode;
     }
 }
+

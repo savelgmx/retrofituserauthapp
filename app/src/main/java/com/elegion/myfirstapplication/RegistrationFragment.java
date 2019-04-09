@@ -1,5 +1,7 @@
 package com.elegion.myfirstapplication;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -17,6 +19,9 @@ import android.widget.Toast;
 import com.elegion.myfirstapplication.model.User;
 
 import okhttp3.MediaType;
+
+import static android.graphics.Color.RED;
+import static android.graphics.Color.WHITE;
 
 public class RegistrationFragment extends Fragment {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -52,11 +57,13 @@ public class RegistrationFragment extends Fragment {
                                     public void run() {
                                         if (!response.isSuccessful()) {
 
-                                        int errorMessage=ErrorUtils.parseError(response);
-                                        Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+                                            int errorMessage=ErrorUtils.parseError(response);
+                                            Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
 
                                         } else {
-                                            showMessage(R.string.registration_success);
+                                            // showMessage(R.string.registration_success);
+                                            int errorMessage=ErrorUtils.parseError(response);
+                                            Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
                                             getFragmentManager().popBackStack();
                                         }
                                     }
@@ -69,6 +76,7 @@ public class RegistrationFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         showMessage(R.string.request_error);
+
                                     }
                                 });
                             }
@@ -107,12 +115,30 @@ public class RegistrationFragment extends Fragment {
     }
 
     private boolean isEmailValid(String email) {
+        //     mEmail.getBackground().setColorFilter(RED, PorterDuff.Mode.SRC_ATOP);
+        if (TextUtils.isEmpty(email))
+        {
+            mEmail.setBackgroundColor(RED);
+            showMessage(R.string.email_empty);
+
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() )
+        {
+            mEmail.setBackgroundColor(RED);
+            showMessage(R.string.email_wrong);
+        }
+        else{
+            mEmail.setBackgroundColor(WHITE);
+            showMessage(R.string.email);
+        }
+
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean isPasswordsValid() {
         String password = mPassword.getText().toString();
         String passwordAgain = mPasswordAgain.getText().toString();
+        TextUtils.getTrimmedLength(password)
 
         return password.equals(passwordAgain)
                 && !TextUtils.isEmpty(password)

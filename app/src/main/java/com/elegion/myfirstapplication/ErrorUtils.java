@@ -19,23 +19,21 @@ public class ErrorUtils {
         switch (response.code()) {
             case 200:
                 stringCode = R.string.response_code_200;
-               // return stringCode;
                 break;
             case 204:
                 stringCode = R.string.response_code_204;
-                // return stringCode;
                 break;
             case 400: //400 Bad Request
                 stringCode = R.string.response_code_400;
-                // return stringCode;
+                break;
+            case 401:
+                stringCode =R.string.auth_error;
                 break;
             case 500: //Server error
                 stringCode = R.string.server_error;
-                //   return stringCode;
                break;
             default:
                 stringCode = R.string.unknown_error;
-               // return stringCode;
                 break;
 
         }

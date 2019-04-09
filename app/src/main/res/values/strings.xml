@@ -8,6 +8,8 @@
     <string name="registration">Зарегистрироваться</string>
     <string name="input_error">Ошибка ввода данных!</string>
     <string name="email">Email</string>
+    <string name="email_empty">Email пустой!</string>
+    <string name="email_wrong">Email неправильный!</string>
     <string name="request_error">Ошибка выполнения запроса!</string>
     <string name="registration_error">Ошибка регистрации!</string>
     <string name="registration_success">Успешно!</string>

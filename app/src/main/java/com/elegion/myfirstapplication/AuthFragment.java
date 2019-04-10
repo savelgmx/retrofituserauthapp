@@ -66,8 +66,10 @@ public class AuthFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         if (!response.isSuccessful()) {
-                                            //todo добавить полноценную обработку ошибок по кодам ответа от сервера и телу запроса
-                                            showMessage(R.string.auth_error);
+                                            int errorMessage=ErrorUtils.parseError(response);
+                                            Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
+//
+//                                            showMessage(R.string.auth_error);
                                         } else {
                                             Gson gson = new Gson();
 //                                            JsonObject json = gson.fromJson(response.body().getData(), JsonObject.class);
@@ -88,6 +90,7 @@ public class AuthFragment extends Fragment {
                         }); //ApiUtils.getApiService().getUser(user).enqueue
 
             } else {
+
                 showMessage(R.string.input_error);
             }
         }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -31,6 +32,7 @@ public class RegistrationFragment extends Fragment {
     private EditText mPassword;
     private EditText mPasswordAgain;
     private Button mRegistration;
+    private TextInputLayout mTextInputLayout;
 
     public static RegistrationFragment newInstance() {
         return new RegistrationFragment();
@@ -97,6 +99,8 @@ public class RegistrationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_registration, container, false);
 
+        mTextInputLayout =  view.findViewById(R.id.textInputLayout);
+
         mEmail = view.findViewById(R.id.etEmail);
         mName = view.findViewById(R.id.etName);
         mPassword = view.findViewById(R.id.etPassword);
@@ -115,20 +119,17 @@ public class RegistrationFragment extends Fragment {
     }
 
     private boolean isEmailValid(String email) {
-        //     mEmail.getBackground().setColorFilter(RED, PorterDuff.Mode.SRC_ATOP);
         if (TextUtils.isEmpty(email))
         {
-            mEmail.setBackgroundColor(RED);
-            showMessage(R.string.email_empty);
-
+              mEmail.setError(getString(R.string.email_empty));
         }
         else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() )
         {
-            mEmail.setBackgroundColor(RED);
-            showMessage(R.string.email_wrong);
+            // showMessage(R.string.email_wrong);
+            mEmail.setError(getString(R.string.email_wrong));
         }
         else{
-            mEmail.setBackgroundColor(WHITE);
+            mEmail.setError(null);
             showMessage(R.string.email);
         }
 
@@ -138,7 +139,7 @@ public class RegistrationFragment extends Fragment {
     private boolean isPasswordsValid() {
         String password = mPassword.getText().toString();
         String passwordAgain = mPasswordAgain.getText().toString();
-        TextUtils.getTrimmedLength(password)
+        TextUtils.getTrimmedLength(password);
 
         return password.equals(passwordAgain)
                 && !TextUtils.isEmpty(password)

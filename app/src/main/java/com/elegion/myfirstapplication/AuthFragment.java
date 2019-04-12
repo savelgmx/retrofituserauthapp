@@ -68,15 +68,10 @@ public class AuthFragment extends Fragment {
                                         if (!response.isSuccessful()) {
                                             int errorMessage=ErrorUtils.parseError(response);
                                             Toast.makeText(getActivity(),errorMessage,Toast.LENGTH_SHORT).show();
-//
-//                                            showMessage(R.string.auth_error);
                                         } else {
                                             Gson gson = new Gson();
-//                                            JsonObject json = gson.fromJson(response.body().getData(), JsonObject.class);
-//                                            User user = gson.fromJson(json.get("data"), User.class);
 
                                             User.UserBean user = response.body().getData();
-//                                            User user = gson.fromJson(json.get("data"), User.class);
 
                                             Intent startProfileIntent = new Intent(getActivity(), ProfileActivity.class);
                                             startProfileIntent.putExtra(ProfileActivity.USER_KEY, (Serializable) user);
@@ -117,11 +112,25 @@ public class AuthFragment extends Fragment {
     };
 
     private boolean isEmailValid() {
+        if (TextUtils.isEmpty(mEmail.getText()))
+        {
+            mEmail.setError(getString(R.string.email_empty));
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(mEmail.getText()).matches() )
+        {
+            mEmail.setError(getString(R.string.email_wrong));
+        }
+        else{
+            mEmail.setError(null);
+        }
+
+
         return !TextUtils.isEmpty(mEmail.getText())
                 && Patterns.EMAIL_ADDRESS.matcher(mEmail.getText()).matches();
     }
 
     private boolean isPasswordValid() {
+
         return !TextUtils.isEmpty(mPassword.getText());
     }
 

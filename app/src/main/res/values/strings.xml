@@ -4,6 +4,8 @@
     <string name="password">Пароль</string>
     <string name="password_enter">Введите пароль</string>
     <string name="password_enter_again">Введите пароль ещё раз</string>
+    <string name="password_length_error">пароль короче 8 символов</string>
+
     <string name="enter">Войти</string>
     <string name="registration">Зарегистрироваться</string>
     <string name="input_error">Ошибка ввода данных!</string>
@@ -23,5 +25,6 @@
     <string name="server_error">Ошибка сервера</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="response_code_200">Успешная авторизация</string>
+
 
 </resources>

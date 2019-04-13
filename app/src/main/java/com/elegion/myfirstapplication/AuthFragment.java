@@ -3,18 +3,15 @@ package com.elegion.myfirstapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +19,7 @@ import android.widget.Toast;
 
 import com.elegion.myfirstapplication.model.User;
 import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 

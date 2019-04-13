@@ -144,6 +144,12 @@ public class RegistrationFragment extends Fragment {
             return false;
         }
         else{mPassword.setError(null);}
+        if (!password.equals(passwordAgain))
+        {
+            mPassword.setError(getString(R.string.password_not_equal));
+            return false;
+        }
+        else{mPassword.setError(null);}
 
         return password.equals(passwordAgain)
                 && !TextUtils.isEmpty(password)

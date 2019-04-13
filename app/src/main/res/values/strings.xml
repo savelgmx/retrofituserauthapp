@@ -5,6 +5,7 @@
     <string name="password_enter">Введите пароль</string>
     <string name="password_enter_again">Введите пароль ещё раз</string>
     <string name="password_length_error">пароль короче 8 символов</string>
+    <string name="password_not_equal">пароли не одинаковы</string>
 
     <string name="enter">Войти</string>
     <string name="registration">Зарегистрироваться</string>
